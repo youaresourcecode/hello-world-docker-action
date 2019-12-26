@@ -1,0 +1,88 @@
+#Pasos para un hola mundo en github actions
+
+##1) Definir un fichero con la info de Docker
+Aquí le establecemos qué imagen de linux va a ejecutar el
+código. Luego le decimos que copie el código de nuestro repo
+hasta el sistema de ficheros con ruta /. Finalmente, le
+decimos donde está el fichero que ejecutará. 
+
+##2) Crear un fichero con metadatos llamado action.yml
+Podremos saber más sobre la sintaxis de los metadatos de las
+acciones de github actions, pero por ahora pondremos este
+con un input "who-to-greet" y un parámetro output llamado
+time. Para pasarle inputs a un container debemos declarar
+las variables dentro de inputs: y pasar el parámetro args en
+la ejecución. Así GHA (github actions) creará una imagen
+desde tu dockerfile y ejecutará los comandos que le has
+pasado en el contenedor. 
+
+name: 'Hello World'
+description: 'Greet someone and record the time'
+inputs:
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
+
+##3) Escribir el código que saluda
+Escribimos entrypoint.sh con el código siguiente:
+#!/bin el shell
+echo "Hola $1" Aquí el saludo
+time=$(date) Aquí cogemos variable fecha
+echo ::set-output name=time::$time Y lo mostramos
+
+Si entrypoint.sh se ejecuta sin errores, el estatus de la acción se establecerá a SUCCESS. Aunque también se pueden establecer códigos de salida determinados.
+
+##4) Crear un fichero README.md 
+Me salto (skipping this step)
+
+##5) Subirlo a GH
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
